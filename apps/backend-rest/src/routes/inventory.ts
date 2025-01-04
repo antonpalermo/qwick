@@ -1,5 +1,5 @@
-import e, { Router } from "express";
-import { db } from "../database.js";
+import { Router } from "express";
+import { db } from "../database";
 
 const router = Router({
   strict: true
