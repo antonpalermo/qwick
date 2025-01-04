@@ -1,5 +1,5 @@
 import { createServer } from "node:http";
-import app from "./server";
+import app from "./server.js";
 
 const server = createServer(app);
 const PORT = process.env.PORT || 8080;

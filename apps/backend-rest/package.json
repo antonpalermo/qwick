@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "private": true,
+  "type": "module",
   "scripts": {
     "with-env": "dotenv -e ../../.env",
     "build": "tsc --production",

@@ -1,7 +1,7 @@
 import express from "express";
 
-import healthRotue from "./routes/health";
-import inventoryRoute from "./routes/inventory";
+import healthRotue from "./routes/health.js";
+import inventoryRoute from "./routes/inventory.js";
 
 const app = express();
 
