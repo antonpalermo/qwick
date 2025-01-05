@@ -1,4 +1,5 @@
 import express from "express";
+import cookieParser from "cookie-parser";
 
 import routes from "./routes";
 
@@ -8,6 +9,8 @@ app.disable("x-powered-by");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(routes)
+app.use(cookieParser());
+
+app.use(routes);
 
 export default app;
