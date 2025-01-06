@@ -1,10 +1,12 @@
 import express from "express";
 
-import health from "./health.js";
-import inventory from "./inventory.js";
+import auth from "./auth";
+import health from "./health";
+import inventory from "./inventory";
 
 const router = express.Router({ strict: true });
 
+router.use("/auth", auth);
 router.use("/health", health);
 router.use("/inventory", inventory);
 
