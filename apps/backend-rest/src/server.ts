@@ -5,6 +5,8 @@ import passport from "passport";
 
 import routes from "./routes";
 
+import "./strategies/google-oauth20.strategy";
+
 const app = express();
 
 app.disable("x-powered-by");
