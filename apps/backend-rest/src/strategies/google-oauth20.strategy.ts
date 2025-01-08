@@ -6,7 +6,7 @@ export default passport.use(
     {
       clientID: process.env.AUTH_GOOGLE_ID!,
       clientSecret: process.env.AUTH_GOOGLE_SECRET!,
-      callbackURL: "http://localhost:8080/api/auth/callback/google"
+      callbackURL: "/api/auth/callback/google"
     },
     (accessToken, refreshToken, profile, done) => {
       console.log("accessToken", accessToken);
