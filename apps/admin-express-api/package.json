@@ -1,16 +1,21 @@
 {
-  "name": "express-rest-api",
+  "name": "admin-express-api",
   "version": "1.0.0",
   "description": "",
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "nodemon src/server.mjs",
+    "with-env": "dotenv -e ../../.env",
+    "dev": "pnpm with-env -- nodemon src/server.mjs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "license": "ISC",
   "dependencies": {
-    "express": "^4.21.2"
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "express-session": "^1.18.1",
+    "passport": "^0.7.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.9"
