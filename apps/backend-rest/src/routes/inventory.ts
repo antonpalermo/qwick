@@ -7,6 +7,7 @@ const router = Router({
 
 router.get("/", async (req, res) => {
   try {
+    console.log(req.user);
     const inventory = await db.selectFrom("inventory").selectAll().execute();
 
     return res.status(200).json({ success: true, data: inventory });
