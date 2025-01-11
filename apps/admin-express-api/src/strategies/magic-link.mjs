@@ -5,6 +5,16 @@ import Plunk from "@plunk/node";
 
 const plunk = new Plunk.default(process.env.PLUNK_API_KEY);
 
+passport.serializeUser((user, done) => {
+  console.log("serializeUser: ", user);
+  done(null, user);
+});
+
+passport.deserializeUser((id, done) => {
+  console.log("deserializeUser: ", id);
+  done(null, { user: id });
+});
+
 export default passport.use(
   new MagicLinkStrategy(
     {
@@ -23,7 +33,7 @@ export default passport.use(
       });
     },
     async user => {
-      console.log(user);
+      console.log("verify callback:", user);
       return { name: "Anton Palermo" };
     }
   )
