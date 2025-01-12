@@ -5,8 +5,10 @@ import expressSession from "express-session";
 import passport from "passport";
 
 import authRoute from "./routes/auth.route.mjs";
+import userRoute from "./routes/user.route.mjs";
 
 import "./strategies/magic-link.mjs";
+import "./database.mjs";
 
 const app = express();
 
@@ -32,6 +34,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use("/auth", authRoute);
+app.use("/user", userRoute);
 
 app.listen(8080, () => {
   console.log(`server listening on http://localhost:8080`);
