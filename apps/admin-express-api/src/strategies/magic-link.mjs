@@ -24,7 +24,7 @@ export default passport.use(
       verifyUserAfterToken: true
     },
     async (user, token) => {
-      const verificationLink = `http://localhost:8080/auth/login/email/verify?token=${token}`;
+      const verificationLink = `http://localhost:8080/api/auth/login/email/verify?token=${token}`;
 
       return plunk.emails.send({
         to: user.email,
