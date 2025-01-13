@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
+import Account from "./accounts.mjs";
 
-const userSchema = mongoose.Schema(
+const UserSchema = new mongoose.Schema(
   {
     name: {
       type: mongoose.Schema.Types.String,
@@ -19,6 +20,9 @@ const userSchema = mongoose.Schema(
     image: {
       type: mongoose.Schema.Types.String,
       required: true
+    },
+    accounts: {
+      type: [Account]
     }
   },
   {
@@ -29,6 +33,6 @@ const userSchema = mongoose.Schema(
   }
 );
 
-const User = mongoose.model("users", userSchema);
+const User = mongoose.model("users", UserSchema);
 
 export default User;
