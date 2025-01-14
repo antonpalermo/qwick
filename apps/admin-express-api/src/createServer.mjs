@@ -16,7 +16,7 @@ export function createServer() {
   const app = express();
 
   const corsOptions = {
-    origin: ["http://localhost:5731"],
+    origin: ["http://localhost:5173"],
     credentials: true
   };
 
