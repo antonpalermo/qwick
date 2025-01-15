@@ -8,6 +8,9 @@ import expressSession from "express-session";
 
 import rootRoutes from "./routes/index.mjs";
 
+import mongoose from "mongoose";
+import ConnectMongo from "connect-mongo";
+
 import "./strategies/magic-link.mjs";
 
 const logger = debug("app:server");
@@ -27,10 +30,14 @@ export function createServer() {
   app.use(cookieParser(process.env.SECRET_KEYID));
   app.use(
     expressSession({
-      secret: process.env.SECRET_KEYID,
-      saveUninitialized: false,
+      name: "sid",
       resave: false,
-      cookie: { maxAge: 1000 * 60 * 60 * 24 }
+      saveUninitialized: false,
+      secret: process.env.SECRET_KEYID,
+      cookie: { maxAge: 1000 * 60 * 60 * 24 },
+      store: ConnectMongo.create({
+        client: mongoose.connection.getClient()
+      })
     })
   );
 
