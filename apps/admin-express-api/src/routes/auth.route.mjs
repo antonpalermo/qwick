@@ -7,11 +7,13 @@ const router = express.Router({
   strict: true
 });
 
+const failureRedirect = `${process.env.FRONTEND_URL}/auth/login`;
+
 router.post(
   "/login/email",
   passport.authenticate("magiclink", {
     action: "requestToken",
-    failureRedirect: "http://localhost:5173/auth/signin"
+    failureRedirect
   }),
   (req, res) => {
     Logger(Namespace.AUTH, `magic link sent to ${req.body.email}`);
@@ -21,9 +23,13 @@ router.post(
 
 router.get(
   "/login/email/verify",
-  passport.authenticate("magiclink", { action: "acceptToken" }),
+  passport.authenticate("magiclink", {
+    action: "acceptToken",
+    failureRedirect,
+    successReturnToOrRedirect: `${process.env.FRONTEND_URL}`
+  }),
   (req, res) => {
-    return res.redirect("http://localhost:5173/");
+    Logger(Namespace.AUTH, "email verified");
   }
 );
 
