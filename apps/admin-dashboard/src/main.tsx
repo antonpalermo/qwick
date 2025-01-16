@@ -11,6 +11,7 @@ import Inventory from "@/components/inventory";
 
 import "./globals.css";
 import CheckEmail from "./components/check-email";
+import SessionProvider from "./components/providers/session";
 
 const router = createBrowserRouter([
   {
@@ -45,6 +46,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <SessionProvider>
+      <RouterProvider router={router} />
+    </SessionProvider>
   </StrictMode>
 );
