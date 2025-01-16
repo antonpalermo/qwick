@@ -33,4 +33,9 @@ router.get(
   }
 );
 
+router.get("/status", (req, res) => {
+  console.log("called");
+  return res.status(200).json({ message: "ok", user: req.user });
+});
+
 export default router;
