@@ -2,6 +2,7 @@ import express from "express";
 import passport from "passport";
 
 import Logger, { Namespace } from "../utils/logger.mjs";
+import isAuthorized from "../middlewares/autorized.mjs";
 
 const router = express.Router({
   strict: true
@@ -33,7 +34,7 @@ router.get(
   }
 );
 
-router.get("/status", (req, res) => {
+router.get("/status", isAuthorized, (req, res) => {
   console.log("called");
   return res.status(200).json({ message: "ok", user: req.user });
 });
