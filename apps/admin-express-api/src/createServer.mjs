@@ -23,18 +23,23 @@ export function createServer() {
     credentials: true
   };
 
+  app.set("trust proxy", true);
+
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
 
   app.use(cors(corsOptions));
-  app.use(cookieParser(process.env.SECRET_KEYID));
+  app.use(cookieParser());
   app.use(
     expressSession({
       name: "sid",
       resave: false,
       saveUninitialized: false,
       secret: process.env.SECRET_KEYID,
-      cookie: { maxAge: 1000 * 60 * 60 * 24 },
+      cookie: {
+        secure: process.env.NODE_ENV === "production",
+        maxAge: 1000 * 60 * 60 * 24
+      },
       store: ConnectMongo.create({
         client: mongoose.connection.getClient()
       })

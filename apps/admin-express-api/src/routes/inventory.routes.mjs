@@ -5,7 +5,7 @@ const router = express.Router({
   strict: true
 });
 
-router.use(isAuthorized);
+// router.use(isAuthorized);
 
 router.get("/item", (req, res) => {
   console.log("request: ", req.session);
