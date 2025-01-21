@@ -35,13 +35,11 @@ router.get(
 );
 
 router.get("/status", isAuthorized, (req, res) => {
-  return res
-    .status(200)
-    .json({
-      success: true,
-      data: req.user,
-      message: "user is currently authenticated"
-    });
+  return res.status(200).json({
+    success: true,
+    data: req.user,
+    message: "user is currently authenticated"
+  });
 });
 
 export default router;
