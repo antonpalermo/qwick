@@ -8,7 +8,6 @@ const router = express.Router({
 // router.use(isAuthorized);
 
 router.get("/item", (req, res) => {
-  console.log("request: ", req.session);
   return res.status(200).json({ invetory: [] });
 });
 

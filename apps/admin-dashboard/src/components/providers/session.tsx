@@ -10,9 +10,7 @@ export default function SessionProvider({ children }: SessionProviderProps) {
 
   React.useEffect(() => {
     async function verifyAuthState() {
-      const req = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/auth/status`
-      );
+      const req = await fetch(`/api/auth/status`);
 
       if (!req.ok) {
         setStatus(false);

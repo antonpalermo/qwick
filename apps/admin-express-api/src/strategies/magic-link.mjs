@@ -8,14 +8,28 @@ import Logger, { Namespace } from "../utils/logger.mjs";
 
 const plunk = new Plunk.default(process.env.PLUNK_API_KEY);
 
+async function getUserById(id) {
+  try {
+    return await User.findById(id).select([
+      "_id",
+      "name",
+      "email",
+      "image",
+      "verified"
+    ]);
+  } catch (error) {
+    Logger(Namespace.AUTH, "unable to locate user " + id);
+    throw new Error(error);
+  }
+}
+
 passport.serializeUser((user, done) => {
-  console.log("serializeUser", user);
   done(null, user.id);
 });
 
 passport.deserializeUser(async (id, done) => {
-  console.log("deserializeUser  ", id);
-  done(null, id);
+  const user = await getUserById(id);
+  done(null, user);
 });
 
 async function sendEmailRequest(user, token) {

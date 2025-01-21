@@ -6,8 +6,7 @@ export default function Inventory() {
     window.document.title = "Inventory";
 
     async function getInventoryData() {
-      const req = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/inventory/item`
+      const req = await fetch(`/api/inventory/item`
       );
 
       console.log(await req.json());

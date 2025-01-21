@@ -10,5 +10,10 @@ export default defineConfig({
     alias: {
       "@": path.resolve(__dirname, "./src")
     }
+  },
+  server: {
+    proxy: {
+      "/api": process.env.BACKEND_URL!
+    }
   }
 });
