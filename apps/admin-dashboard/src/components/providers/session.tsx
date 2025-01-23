@@ -26,21 +26,28 @@ export default function SessionProvider({ children }: SessionProviderProps) {
 
   React.useEffect(() => {
     async function verifyAuthState() {
-      const req = await fetch(`/api/auth/status`);
+      try {
+        // set to loading status
+        setSession(prevState => ({ ...prevState, status: "loading" }));
+        // make the http request to check authentication status
+        const request = await fetch(`/api/auth/status`);
 
-      if (!req.ok) {
-        return;
-      }
+        if (!request.ok) {
+          // if failed to send request throw an error.
+          throw new Error("Failed to verify auth status");
+        }
 
-      setSession(prevState => ({ ...prevState, status: "loading" }));
-
-      const response = await req.json();
-
-      if (response.success) {
-        setSession({
-          status: "authenticated",
-          user: response.data
-        });
+        // parse response.
+        const response = await request.json();
+        // if response is successfult then set the session data
+        if (response.success) {
+          setSession({
+            status: "authenticated",
+            user: response.data
+          });
+        }
+      } catch (error) {
+        console.log(error);
       }
     }
 
