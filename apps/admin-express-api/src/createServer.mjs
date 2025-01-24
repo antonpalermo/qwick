@@ -8,6 +8,9 @@ import expressSession from "express-session";
 
 import rootRoutes from "./routes/index.mjs";
 
+import mongoose from "mongoose";
+import ConnectMongo from "connect-mongo";
+
 import "./strategies/magic-link.mjs";
 
 const logger = debug("app:server");
@@ -16,21 +19,30 @@ export function createServer() {
   const app = express();
 
   const corsOptions = {
-    origin: ["http://localhost:5731"],
+    origin: [process.env.FRONTEND_URL],
     credentials: true
   };
+
+  app.set("trust proxy", true);
 
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
 
   app.use(cors(corsOptions));
-  app.use(cookieParser(process.env.SECRET_KEYID));
+  app.use(cookieParser());
   app.use(
     expressSession({
-      secret: process.env.SECRET_KEYID,
-      saveUninitialized: false,
+      name: "sid",
       resave: false,
-      cookie: { maxAge: 1000 * 60 * 60 * 24 }
+      saveUninitialized: false,
+      secret: process.env.SECRET_KEYID,
+      cookie: {
+        secure: process.env.NODE_ENV === "production",
+        maxAge: 1000 * 60 * 60 * 24
+      },
+      store: ConnectMongo.create({
+        client: mongoose.connection.getClient()
+      })
     })
   );
 

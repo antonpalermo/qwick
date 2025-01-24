@@ -1,12 +1,14 @@
 import express from "express";
+import isAuthorized from "../middlewares/autorized.mjs";
 
-const route = express.Router({
+const router = express.Router({
   strict: true
 });
 
-route.get("/item", (req, res) => {
-  console.log("request: ", req.session);
+// router.use(isAuthorized);
+
+router.get("/item", (req, res) => {
   return res.status(200).json({ invetory: [] });
 });
 
-export default route;
+export default router;
