@@ -9,6 +9,25 @@ const routes = express.Router({
 
 routes.use(isAuthorized);
 
+routes.get("/", async (request, response) => {
+  try {
+    const id = request.user.id;
+    const stores = await storeService.getStores(id);
+
+    return response.status(201).json({
+      success: true,
+      data: stores,
+      message: `all stores successfully fetched`
+    });
+  } catch (error) {
+    return response.status(500).json({
+      success: false,
+      data: undefined,
+      message: `Unable to fetch all stores`
+    });
+  }
+});
+
 routes.post("/create", async (request, response) => {
   try {
     const data = request.body;

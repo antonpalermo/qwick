@@ -12,4 +12,14 @@ async function createStore(store) {
   }
 }
 
-export default { createStore };
+async function getStores(ownerid) {
+  try {
+    const stores = await Store.find({ owner: ownerid });
+    return stores;
+  } catch (error) {
+    Logger(Namespace.DATABASE, "unable to create store " + store.name);
+    throw new Error(error);
+  }
+}
+
+export default { createStore, getStores };

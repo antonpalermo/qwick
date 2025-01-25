@@ -12,6 +12,6 @@ const router = express.Router({
 router.use("/auth", authRoutes);
 router.use("/user", userRoutes);
 router.use("/inventory", inventoryRoutes);
-router.use("/store", storeRoutes);
+router.use("/stores", storeRoutes);
 
 export default router;
