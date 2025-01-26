@@ -1,33 +1,47 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { BrowserRouter, Route, Routes } from "react-router";
+import { createBrowserRouter, RouterProvider } from "react-router";
 
 import SignIn from "@/components/sign-in";
-import SignInLayout from "@/components/sign-in.layout";
 import Inventory from "@/components/inventory";
 import Dashboard from "@/components/dashboard";
-import DashboardLayout from "@/components/dashboard.layout";
+import CheckEmail from "@/components/check-email";
 
-import CheckEmail from "./components/check-email";
-import SessionProvider from "./components/providers/session";
+import RootLayout from "@/components/root.layout";
+import SignInLayout from "@/components/sign-in.layout";
+import DashboardLayout from "@/components/dashboard.layout";
 
 import "./globals.css";
 
+import storeLoaders from "@/loaders/store.loaders";
+
+const routes = createBrowserRouter([
+  {
+    element: <RootLayout />,
+    children: [
+      {
+        path: "/",
+        element: <DashboardLayout />,
+        loader: async () => await storeLoaders.loadStores(),
+        children: [
+          { path: ":storeid", element: <Dashboard /> },
+          { path: "inventory", element: <Inventory /> }
+        ]
+      },
+      {
+        path: "/auth",
+        element: <SignInLayout />,
+        children: [
+          { path: "signin", element: <SignIn /> },
+          { path: "check-email", element: <CheckEmail /> }
+        ]
+      }
+    ]
+  }
+]);
+
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <BrowserRouter>
-      <SessionProvider>
-        <Routes>
-          <Route element={<DashboardLayout />}>
-            <Route index element={<Dashboard />} />
-            <Route path="inventory" element={<Inventory />} />
-          </Route>
-          <Route path="auth" element={<SignInLayout />}>
-            <Route path="signin" element={<SignIn />} />
-            <Route path="check-email" element={<CheckEmail />} />
-          </Route>
-        </Routes>
-      </SessionProvider>
-    </BrowserRouter>
+    <RouterProvider router={routes} />
   </StrictMode>
 );
