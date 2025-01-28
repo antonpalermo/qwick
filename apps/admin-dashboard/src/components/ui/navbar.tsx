@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { ChevronsUpDown } from "lucide-react";
+import { Check, ChevronsUpDown } from "lucide-react";
 
 import {
   Command,
@@ -10,7 +10,8 @@ import {
 } from "@/components/ui/command";
 import { Button } from "@/components/ui/button";
 import { Combobox } from "@/components/ui/combo-box";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
+import { cn } from "@/lib/utils";
 
 export type Store = {
   id: string;
@@ -26,8 +27,10 @@ interface StoreSelectorProps {
 
 function StoreSelector({ stores }: StoreSelectorProps) {
   const [open, setOpen] = React.useState(false);
+  const [selected, setSelected] = React.useState(stores[0].name);
 
   const navigate = useNavigate();
+  const params = useParams();
 
   return (
     <Combobox open={open} onOpenChange={setOpen}>
@@ -38,7 +41,7 @@ function StoreSelector({ stores }: StoreSelectorProps) {
           role="combobox"
           className="min-w-72 justify-between"
         >
-          Select Store
+          {selected}
           <ChevronsUpDown className="opacity-50 " />
         </Button>
       </Combobox.Trigger>
@@ -52,10 +55,17 @@ function StoreSelector({ stores }: StoreSelectorProps) {
                   value={store.id}
                   onSelect={() => {
                     navigate(`/${store.id}`);
+                    setSelected(store.name);
                     setOpen(false);
                   }}
                 >
                   {store.name}
+                  <Check
+                    className={cn(
+                      "ml-auto",
+                      store.id === params.storeid ? "opacity-100" : "opacity-0"
+                    )}
+                  />
                 </CommandItem>
               ))}
             </CommandGroup>

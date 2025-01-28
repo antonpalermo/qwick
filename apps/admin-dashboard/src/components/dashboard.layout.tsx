@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useLoaderData, Outlet } from "react-router";
+import { useLoaderData, Outlet, useNavigate } from "react-router";
 
 import Navbar from "@/components/ui/navbar";
 
@@ -13,8 +13,14 @@ export type Store = {
 
 export default function DashboardLayout() {
   const store = useLoaderData();
+  const navigate = useNavigate();
 
-  React.useEffect(() => {}, []);
+  React.useEffect(() => {
+    const defautStore = store.data[0].id;
+    if (location.pathname === "/") {
+      navigate(`/${defautStore}`, { replace: true });
+    }
+  }, [navigate, store.data]);
 
   return (
     <main>
