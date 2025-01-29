@@ -27,10 +27,15 @@ interface StoreSelectorProps {
 
 function StoreSelector({ stores }: StoreSelectorProps) {
   const [open, setOpen] = React.useState(false);
-  const [selected, setSelected] = React.useState(stores[0].name);
+  const [selected, setSelected] = React.useState("");
 
   const navigate = useNavigate();
   const params = useParams();
+
+  React.useEffect(() => {
+    const currentStore = params.storeid;
+    setSelected(stores.find(store => store.id === currentStore)?.name || "");
+  }, [params.storeid, stores]);
 
   return (
     <Combobox open={open} onOpenChange={setOpen}>
@@ -42,7 +47,7 @@ function StoreSelector({ stores }: StoreSelectorProps) {
           className="min-w-72 justify-between"
         >
           {selected}
-          <ChevronsUpDown className="opacity-50 " />
+          <ChevronsUpDown className="opacity-50" />
         </Button>
       </Combobox.Trigger>
       <Combobox.Content>
