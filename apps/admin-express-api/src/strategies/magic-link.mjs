@@ -4,6 +4,8 @@ import { Strategy as MagicLinkStrategy } from "passport-magic-link";
 import Plunk from "@plunk/node";
 
 import User from "../mongoose/schemas/user.mjs";
+import Properties from "../mongoose/schemas/properties.mjs";
+
 import Logger, { Namespace } from "../utils/logger.mjs";
 
 const plunk = new Plunk.default(process.env.PLUNK_API_KEY);
@@ -80,6 +82,16 @@ async function createUserWithEmail(email) {
         new: true
       }
     );
+
+    await Properties.create({
+      user: result.id,
+      properties: {
+        store: {
+          default: null
+        },
+        theme: "dark"
+      }
+    });
 
     return { id: result.id };
   } catch (error) {
