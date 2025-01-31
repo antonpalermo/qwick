@@ -1,5 +1,6 @@
 import express from "express";
 import Properties from "../mongoose/schemas/properties.mjs";
+import PropertiesServices from "../mongoose/properties.services.mjs";
 
 import isAuthorized from "../middlewares/autorized.mjs";
 
@@ -12,8 +13,13 @@ router.use(isAuthorized);
 router.get("/", async (request, response) => {
   const user = request.user.id;
   try {
-    const property = await Properties.findOne({ user });
-    return response.status(200).json(property);
+    const property = await PropertiesServices.getUserProperties(user);
+
+    return response.status(200).json({
+      success: true,
+      data: property,
+      message: "successfully fetched all properties"
+    });
   } catch (error) {
     console.log(error);
   }
@@ -24,13 +30,16 @@ router.put("/update", async (request, response) => {
   const properties = request.body;
 
   try {
-    const updatedProperties = await Properties.findOneAndUpdate(
-      { user },
-      { $set: properties },
-      { new: true }
+    const updatedProperties = await PropertiesServices.updateUserProperties(
+      user,
+      properties
     );
 
-    return response.status(200).json(updatedProperties);
+    return response.status(200).json({
+      success: true,
+      data: updatedProperties,
+      message: "user properties successfully updated"
+    });
   } catch (error) {
     console.log(error);
   }
