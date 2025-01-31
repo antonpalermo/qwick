@@ -1,6 +1,5 @@
 import express from "express";
 import User from "../mongoose/schemas/user.mjs";
-import Properties from "../mongoose/schemas/properties.mjs";
 
 import isAuthorized from "../middlewares/autorized.mjs";
 
@@ -18,16 +17,6 @@ router.post("/create", async (req, res) => {
 
     console.log(result);
     return res.status(201).json("user created");
-  } catch (error) {
-    console.log(error);
-  }
-});
-
-router.get("/properties", async (request, response) => {
-  const user = request.user.id;
-  try {
-    const property = await Properties.findOne({ user });
-    return response.status(200).json(property);
   } catch (error) {
     console.log(error);
   }
