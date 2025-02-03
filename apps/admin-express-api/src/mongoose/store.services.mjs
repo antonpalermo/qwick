@@ -1,4 +1,7 @@
+import mongoose from "mongoose";
+
 import Store from "./schemas/store.mjs";
+import Properties from "./schemas/properties.mjs";
 
 import Logger, { Namespace } from "../utils/logger.mjs";
 
@@ -14,10 +17,44 @@ async function createStore(store) {
 
 async function getStores(ownerid) {
   try {
-    const stores = await Store.find({ owner: ownerid });
+    const stores = await Properties.aggregate([
+      {
+        $match: {
+          user: new mongoose.Types.ObjectId(`${ownerid}`)
+        }
+      },
+      {
+        $lookup: {
+          from: "stores",
+          localField: "user",
+          foreignField: "owner",
+          as: "stores"
+        }
+      },
+      {
+        $project: {
+          _id: false,
+          id: "$_id",
+          default: "$properties.store.default",
+          stores: {
+            $map: {
+              input: "$stores",
+              as: "store",
+              in: {
+                id: "$$store._id",
+                name: "$$store.name",
+                owner: "$$store.owner",
+                dateCreated: "$$store.dateCreated",
+                dateUpdated: "$$store.dateUpdated"
+              }
+            }
+          }
+        }
+      }
+    ]);
     return stores;
   } catch (error) {
-    Logger(Namespace.DATABASE, "unable to create store " + store.name);
+    Logger(Namespace.DATABASE, "unable to get all available stores");
     throw new Error(error);
   }
 }
