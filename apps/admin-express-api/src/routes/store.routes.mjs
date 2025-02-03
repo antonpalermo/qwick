@@ -15,9 +15,9 @@ routes.get("/", async (request, response) => {
     const id = request.user.id;
     const stores = await storeService.getStores(id);
 
-    return response.status(201).json({
+    return response.status(200).json({
       success: true,
-      data: stores,
+      data: stores[0],
       message: `all stores successfully fetched`
     });
   } catch (error) {
