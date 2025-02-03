@@ -37,6 +37,25 @@ function StoreSelector({ stores }: StoreSelectorProps) {
     setSelected(stores.find(store => store.id === currentStore)?.name || "");
   }, [params.storeid, stores]);
 
+  async function onSelectChange(id: string) {
+    try {
+      await fetch("/api/properties/update", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ store: { default: id } })
+      });
+
+      navigate(`/${id}`);
+      setOpen(false);
+
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (e) {
+      throw new Error("error");
+    }
+  }
+
   return (
     <Combobox open={open} onOpenChange={setOpen}>
       <Combobox.Trigger asChild>
@@ -59,9 +78,8 @@ function StoreSelector({ stores }: StoreSelectorProps) {
                   key={store.id}
                   value={store.id}
                   onSelect={() => {
-                    navigate(`/${store.id}`);
                     setSelected(store.name);
-                    setOpen(false);
+                    onSelectChange(store.id);
                   }}
                 >
                   {store.name}
