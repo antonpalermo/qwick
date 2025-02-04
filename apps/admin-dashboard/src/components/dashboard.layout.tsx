@@ -12,19 +12,20 @@ export type Store = {
 };
 
 export default function DashboardLayout() {
-  const store = useLoaderData();
+  const { data } = useLoaderData();
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    const defautStore = store.data[0].id;
+    const defautStore = data.default;
+
     if (location.pathname === "/") {
       navigate(`/${defautStore}`, { replace: true });
     }
-  }, [navigate, store.data]);
+  }, [navigate, data.default]);
 
   return (
     <main>
-      <Navbar stores={store.data} />
+      <Navbar stores={data.stores} />
       <div className="container mx-auto px-5">
         <Outlet />
       </div>

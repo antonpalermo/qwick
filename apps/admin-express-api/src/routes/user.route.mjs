@@ -14,6 +14,7 @@ router.post("/create", async (req, res) => {
 
   try {
     const result = await User.create({ name, email, image });
+
     console.log(result);
     return res.status(201).json("user created");
   } catch (error) {

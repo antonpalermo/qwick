@@ -4,6 +4,7 @@ import authRoutes from "./auth.routes.mjs";
 import userRoutes from "./user.route.mjs";
 import storeRoutes from "./store.routes.mjs";
 import inventoryRoutes from "./inventory.routes.mjs";
+import propertiesRoutes from "./properties.routes.mjs";
 
 const router = express.Router({
   strict: true
@@ -11,7 +12,8 @@ const router = express.Router({
 
 router.use("/auth", authRoutes);
 router.use("/user", userRoutes);
-router.use("/inventory", inventoryRoutes);
 router.use("/stores", storeRoutes);
+router.use("/inventory", inventoryRoutes);
+router.use("/properties", propertiesRoutes);
 
 export default router;
