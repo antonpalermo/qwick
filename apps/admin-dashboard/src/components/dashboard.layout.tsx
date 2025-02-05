@@ -1,5 +1,4 @@
-import * as React from "react";
-import { useLoaderData, Outlet, useNavigate } from "react-router";
+import { useLoaderData, Outlet, Navigate } from "react-router";
 
 import Navbar from "@/components/ui/navbar";
 
@@ -12,20 +11,15 @@ export type Store = {
 };
 
 export default function DashboardLayout() {
-  const { data } = useLoaderData();
-  const navigate = useNavigate();
+  const loader = useLoaderData();
 
-  React.useEffect(() => {
-    const defautStore = data.default;
-
-    if (location.pathname === "/") {
-      navigate(`/${defautStore}`, { replace: true });
-    }
-  }, [navigate, data.default]);
+  if (!loader.success) {
+    return <Navigate to={"/auth/signin"} />;
+  }
 
   return (
     <main>
-      <Navbar stores={data.stores} />
+      <Navbar data={loader.data} />
       <div className="container mx-auto px-5">
         <Outlet />
       </div>

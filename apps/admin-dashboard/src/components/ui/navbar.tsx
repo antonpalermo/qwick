@@ -10,7 +10,6 @@ import {
 } from "@/components/ui/command";
 import { Button } from "@/components/ui/button";
 import { Combobox } from "@/components/ui/combo-box";
-import { useNavigate, useParams } from "react-router";
 import { cn } from "@/lib/utils";
 
 export type Store = {
@@ -22,20 +21,21 @@ export type Store = {
 };
 
 interface StoreSelectorProps {
-  stores: Store[];
+  data: {
+    default: string;
+    stores: Store[];
+  };
 }
 
-function StoreSelector({ stores }: StoreSelectorProps) {
+function StoreSelector({ data }: StoreSelectorProps) {
   const [open, setOpen] = React.useState(false);
   const [selected, setSelected] = React.useState("");
 
-  const navigate = useNavigate();
-  const params = useParams();
-
   React.useEffect(() => {
-    const currentStore = params.storeid;
-    setSelected(stores.find(store => store.id === currentStore)?.name || "");
-  }, [params.storeid, stores]);
+    setSelected(
+      data.stores.find(store => store.id === data.default)?.name || ""
+    );
+  }, [data.stores, data.default]);
 
   async function onSelectChange(id: string) {
     try {
@@ -46,8 +46,6 @@ function StoreSelector({ stores }: StoreSelectorProps) {
         },
         body: JSON.stringify({ store: { default: id } })
       });
-
-      navigate(`/${id}`);
       setOpen(false);
 
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -73,7 +71,7 @@ function StoreSelector({ stores }: StoreSelectorProps) {
         <Command>
           <CommandList>
             <CommandGroup>
-              {stores.map((store: Store) => (
+              {data.stores.map((store: Store) => (
                 <CommandItem
                   key={store.id}
                   value={store.id}
@@ -86,7 +84,7 @@ function StoreSelector({ stores }: StoreSelectorProps) {
                   <Check
                     className={cn(
                       "ml-auto",
-                      store.id === params.storeid ? "opacity-100" : "opacity-0"
+                      store.id === data.default ? "opacity-100" : "opacity-0"
                     )}
                   />
                 </CommandItem>
@@ -100,15 +98,18 @@ function StoreSelector({ stores }: StoreSelectorProps) {
 }
 
 export interface NavbarProps {
-  stores: Store[];
+  data: {
+    default: string;
+    stores: Store[];
+  };
 }
 
-export default function Navbar({ stores }: NavbarProps) {
+export default function Navbar({ data }: NavbarProps) {
   return (
     <nav className="w-full py-2">
       <div className="container mx-auto px-5">
         <div className="w-full inline-flex items-center justify-between">
-          <StoreSelector stores={stores} />
+          <StoreSelector data={data} />
           <Button>Create</Button>
         </div>
       </div>

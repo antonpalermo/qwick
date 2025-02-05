@@ -21,10 +21,11 @@ const routes = createBrowserRouter([
     children: [
       {
         path: "/",
+        id: "root",
         element: <DashboardLayout />,
-        loader: async () => await storeLoaders.loadStores(),
+        loader: storeLoaders.loadStores,
         children: [
-          { path: ":storeid", element: <Dashboard /> },
+          { index: true, element: <Dashboard /> },
           { path: "inventory", element: <Inventory /> }
         ]
       },
