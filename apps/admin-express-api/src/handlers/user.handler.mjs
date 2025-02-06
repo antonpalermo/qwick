@@ -1,14 +1,22 @@
-import User from "../mongoose/schemas/user.mjs";
-import logger, { Namespace } from "../utils/logger.mjs";
+import userServices from "../mongoose/user.services.mjs";
 
-export async function createUser(usr) {
+export async function createUser(request, response) {
   try {
-    const result = new User({
-      ...usr
-    });
+    const body = request.body;
+    const newUser = await userServices.createUser({ ...body });
 
-    return await result.save();
+    return response.status(201).json({
+      success: true,
+      data: newUser,
+      message: "new user successfully created"
+    });
   } catch (error) {
-    logger(Namespace.API, "error unable to create new user model");
+    return response.status(500).json({
+      success: false,
+      data: null,
+      message: "internal server error: unable to create new user"
+    });
   }
 }
+
+export default { createUser };

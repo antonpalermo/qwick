@@ -1,7 +1,7 @@
 import express from "express";
 
 import authRoutes from "./auth.routes.mjs";
-import userRoutes from "./user.route.mjs";
+import userRoutes from "./user.routes.mjs";
 import storeRoutes from "./store.routes.mjs";
 import inventoryRoutes from "./inventory.routes.mjs";
 import propertiesRoutes from "./properties.routes.mjs";
