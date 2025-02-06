@@ -24,6 +24,7 @@ export function createServer() {
   };
 
   app.set("trust proxy", true);
+  app.disable("x-powered-by");
 
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
