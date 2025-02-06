@@ -1,6 +1,6 @@
 import Properties from "./schemas/properties.mjs";
 
-async function getUserProperties(uid) {
+async function getAllProperties(uid) {
   try {
     const properties = await Properties.find({
       user: uid
@@ -11,7 +11,7 @@ async function getUserProperties(uid) {
   }
 }
 
-async function updateUserProperties(uid, properties) {
+async function updateProperties(uid, properties) {
   try {
     const modifiedProperties = {};
 
@@ -31,4 +31,4 @@ async function updateUserProperties(uid, properties) {
   }
 }
 
-export default { getUserProperties, updateUserProperties };
+export default { getAllProperties, updateProperties };
