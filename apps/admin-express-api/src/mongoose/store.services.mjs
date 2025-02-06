@@ -17,6 +17,8 @@ async function createStore(store) {
 
 async function getStores(ownerid) {
   try {
+    // we are getting all available stores based on what the properties
+    // user have.
     const stores = await Properties.aggregate([
       {
         $match: {
