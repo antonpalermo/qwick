@@ -3,34 +3,19 @@ import { Strategy as MagicLinkStrategy } from "passport-magic-link";
 
 import Plunk from "@plunk/node";
 
-import User from "../mongoose/schemas/user.mjs";
-import Properties from "../mongoose/schemas/properties.mjs";
+import userServices from "../mongoose/user.services.mjs";
+import propertiesServices from "../mongoose/properties.services.mjs";
 
 import Logger, { Namespace } from "../utils/logger.mjs";
 
 const plunk = new Plunk.default(process.env.PLUNK_API_KEY);
-
-async function getUserById(id) {
-  try {
-    return await User.findById(id).select([
-      "_id",
-      "name",
-      "email",
-      "image",
-      "verified"
-    ]);
-  } catch (error) {
-    Logger(Namespace.AUTH, "unable to locate user " + id);
-    throw new Error(error);
-  }
-}
 
 passport.serializeUser((user, done) => {
   done(null, user.id);
 });
 
 passport.deserializeUser(async (id, done) => {
-  const user = await getUserById(id);
+  const user = await userServices.getUser(id);
   done(null, user);
 });
 
@@ -57,43 +42,12 @@ async function sendEmailRequest(user, token) {
 
 async function createUserWithEmail(email) {
   try {
-    const result = await User.findOneAndUpdate(
-      {
-        email,
-        "accounts.type": "email"
-      },
-      {
-        name: "",
-        email,
-        image: "",
-        verified: true,
-        accounts: [
-          {
-            type: "email",
-            provider: "magiclink",
-            accessToken: null,
-            refreshToken: null,
-            scope: null
-          }
-        ]
-      },
-      {
-        upsert: true,
-        new: true
-      }
-    );
+    // upsert a new user if the email provided does not exist.
+    const user = await userServices.getUserByEmail(email);
+    // then create a default set of properties for a user
+    await propertiesServices.createProperties(user.id);
 
-    await Properties.create({
-      user: result.id,
-      properties: {
-        store: {
-          default: null
-        },
-        theme: "dark"
-      }
-    });
-
-    return { id: result.id };
+    return { id: user.id };
   } catch (error) {
     throw new Error(error);
   }
