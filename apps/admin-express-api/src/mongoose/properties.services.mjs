@@ -21,7 +21,7 @@ async function createProperties(uid) {
   }
 }
 
-async function getAllProperties(uid) {
+async function getProperties(uid) {
   try {
     const properties = await Properties.find({
       user: uid
@@ -52,4 +52,8 @@ async function updateProperties(uid, properties) {
   }
 }
 
-export default { getAllProperties, updateProperties, createProperties };
+export default {
+  getProperties,
+  updateProperties,
+  createProperties
+};

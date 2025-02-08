@@ -3,7 +3,7 @@ import propertiesServices from "../mongoose/properties.services.mjs";
 async function getUserProperties(request, response) {
   try {
     const user = request.user.id;
-    const properties = await propertiesServices.getAllProperties(user);
+    const properties = await propertiesServices.getProperties(user);
 
     if (!properties) {
       return response.status(404).json({
