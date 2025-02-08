@@ -1,7 +1,7 @@
 import express from "express";
 
+import handler from "../handlers/user.handler.mjs";
 import isAuthorized from "../middlewares/autorized.mjs";
-import handler from "../handlers/properties.handler.mjs";
 
 const router = express.Router({
   strict: true
@@ -9,8 +9,6 @@ const router = express.Router({
 
 router.use(isAuthorized);
 
-router.get("/", handler.getUserProperties);
-
-router.put("/update", handler.updateUserProperties);
+router.post("/create", handler.createUser);
 
 export default router;

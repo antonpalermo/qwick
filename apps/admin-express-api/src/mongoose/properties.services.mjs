@@ -1,6 +1,27 @@
 import Properties from "./schemas/properties.mjs";
+import BackendError from "../utils/errors.mjs";
+import mongoose from "mongoose";
 
-async function getUserProperties(uid) {
+async function createProperties(uid) {
+  try {
+    return await Properties.create({
+      user: new mongoose.Types.ObjectId(`${uid}`),
+      properties: {
+        store: {
+          default: null
+        },
+        theme: "light"
+      }
+    });
+  } catch (error) {
+    throw new BackendError(
+      "database",
+      "unable to create user properties at the moment"
+    );
+  }
+}
+
+async function getProperties(uid) {
   try {
     const properties = await Properties.find({
       user: uid
@@ -11,7 +32,7 @@ async function getUserProperties(uid) {
   }
 }
 
-async function updateUserProperties(uid, properties) {
+async function updateProperties(uid, properties) {
   try {
     const modifiedProperties = {};
 
@@ -31,4 +52,8 @@ async function updateUserProperties(uid, properties) {
   }
 }
 
-export default { getUserProperties, updateUserProperties };
+export default {
+  getProperties,
+  updateProperties,
+  createProperties
+};
