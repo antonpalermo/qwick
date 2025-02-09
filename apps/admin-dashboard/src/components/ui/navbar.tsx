@@ -11,6 +11,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Combobox } from "@/components/ui/combo-box";
 import { cn } from "@/lib/utils";
+import { useNavigate } from "react-router";
 
 export type Store = {
   id: string;
@@ -105,12 +106,24 @@ export interface NavbarProps {
 }
 
 export default function Navbar({ data }: NavbarProps) {
+  const navigate = useNavigate();
+
   return (
     <nav className="w-full py-2">
       <div className="container mx-auto px-5">
         <div className="w-full inline-flex items-center justify-between">
-          <StoreSelector data={data} />
-          <Button>Create</Button>
+          <div className="space-x-3">
+            <StoreSelector data={data} />
+            <Button>Create</Button>
+          </div>
+          <div>
+            <Button variant="link" onClick={() => navigate("/")}>
+              Dashboard
+            </Button>
+            <Button variant="link" onClick={() => navigate("/inventory")}>
+              Inventory
+            </Button>
+          </div>
         </div>
       </div>
     </nav>

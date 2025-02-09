@@ -25,8 +25,14 @@ const routes = createBrowserRouter([
         element: <DashboardLayout />,
         loader: storeLoaders.loadStores,
         children: [
-          { index: true, element: <Dashboard /> },
-          { path: "inventory", element: <Inventory /> }
+          {
+            index: true,
+            element: <Dashboard />
+          },
+          {
+            path: "inventory",
+            element: <Inventory />
+          }
         ]
       },
       {
