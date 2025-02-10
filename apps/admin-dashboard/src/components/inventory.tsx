@@ -22,7 +22,7 @@ export default function Inventory() {
 
   return (
     <div>
-      <h1 className="text-lg sm:text-3xl font-medium">Inventory</h1>
+      <h1 className="text-lg sm:text-3xl font-bold">Inventory</h1>
     </div>
   );
 }
