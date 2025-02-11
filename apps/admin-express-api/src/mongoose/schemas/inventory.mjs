@@ -1,9 +1,20 @@
 import mongoose from "mongoose";
 
+import Field from "./field.mjs";
+import Store from "./store.mjs";
+
 const inventorySchema = new mongoose.Schema(
   {
+    name: {
+      type: mongoose.Schema.Types.String
+    },
+    fields: [Field],
+    quantity: {
+      type: mongoose.Schema.Types.Number
+    },
     store: {
-      type: mongoose.Schema.Types.ObjectId
+      type: mongoose.Schema.Types.ObjectId,
+      ref: Store
     }
   },
   {
