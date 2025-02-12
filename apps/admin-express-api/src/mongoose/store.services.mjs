@@ -4,12 +4,20 @@ import Store from "./schemas/store.mjs";
 import Properties from "./schemas/properties.mjs";
 
 import Logger, { Namespace } from "../utils/logger.mjs";
+import OutlineService from "./outline.services.mjs";
 
 async function createStore(store) {
   try {
     const createdStore = await Store.create(store);
+
+    // create a default outline for a store.
+    await OutlineService.createOutline({
+      store: new mongoose.Types.ObjectId(createdStore._id.toString())
+    });
+
     return createdStore;
   } catch (error) {
+    console.log(error);
     Logger(Namespace.DATABASE, "unable to create store " + store.name);
     throw new Error(error);
   }
