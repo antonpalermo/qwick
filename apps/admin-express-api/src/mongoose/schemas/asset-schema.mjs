@@ -1,19 +1,12 @@
 import mongoose from "mongoose";
+
 import Store from "./store.mjs";
+import SchemaProperties from "./schema-properties.mjs";
 
-const Mapping = new mongoose.Schema({
-  label: {
-    type: mongoose.Schema.Types.String
-  },
-  type: {
-    type: mongoose.Schema.Types.String
-  }
-});
-
-const outlineSchame = new mongoose.Schema(
+const assetSchema = new mongoose.Schema(
   {
-    mappings: {
-      type: [Mapping],
+    schema: {
+      type: [SchemaProperties],
       default: [
         { label: "Name", type: "string" },
         { label: "Quantity", type: "number" }
@@ -41,4 +34,4 @@ const outlineSchame = new mongoose.Schema(
   }
 );
 
-export default mongoose.model("outline", outlineSchame);
+export default mongoose.model("asset-schema", assetSchema);
