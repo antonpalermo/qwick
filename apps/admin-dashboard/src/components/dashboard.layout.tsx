@@ -21,7 +21,9 @@ export default function DashboardLayout() {
     <main>
       <Navbar data={loader.data} />
       <div className="container mx-auto px-5">
-        <Outlet />
+        <div className="my-5">
+          <Outlet />
+        </div>
       </div>
     </main>
   );

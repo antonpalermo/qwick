@@ -1,14 +1,16 @@
 import express from "express";
 import isAuthorized from "../middlewares/autorized.mjs";
 
+import handler from "../handlers/inventory.handler.mjs";
+
 const router = express.Router({
   strict: true
 });
 
-// router.use(isAuthorized);
+router.use(isAuthorized);
 
-router.get("/item", (req, res) => {
-  return res.status(200).json({ invetory: [] });
-});
+router.get("/", handler.getInventory);
+
+router.post("/create", handler.createItem);
 
 export default router;

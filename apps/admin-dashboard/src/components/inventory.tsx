@@ -1,5 +1,4 @@
 import React from "react";
-import { Outlet } from "react-router";
 import useSession from "./hooks/use-session";
 
 export default function Inventory() {
@@ -23,9 +22,7 @@ export default function Inventory() {
 
   return (
     <div>
-      <h1>Inventory</h1>
-      <Outlet />
-      {JSON.stringify(session)}
+      <h1 className="text-lg sm:text-3xl font-bold">Inventory</h1>
     </div>
   );
 }
