@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 export interface User {
   id: string;
@@ -10,12 +10,12 @@ export interface User {
 
 export interface SessionState {
   user: User | undefined;
-  status: "loading" | "unauthenticated" | "authenticated";
+  status: 'loading' | 'unauthenticated' | 'authenticated';
 }
 
 const Session = React.createContext<SessionState>({
   user: undefined,
-  status: "unauthenticated"
+  status: 'unauthenticated',
 });
 
 export default Session;

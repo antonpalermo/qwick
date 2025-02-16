@@ -1,31 +1,31 @@
 {
   "$schema": "https://json.schemastore.org/nest-cli",
   "collection": "@nestjs/schematics",
-  "sourceRoot": "apps/qwick/src",
+  "sourceRoot": "apps/gateway/src",
   "compilerOptions": {
     "deleteOutDir": true,
     "webpack": true,
-    "tsConfigPath": "apps/qwick/tsconfig.app.json"
+    "tsConfigPath": "apps/gateway/tsconfig.app.json"
   },
   "monorepo": true,
-  "root": "apps/qwick",
+  "root": "apps/gateway",
   "projects": {
-    "qwick": {
+    "gateway": {
       "type": "application",
-      "root": "apps/qwick",
+      "root": "apps/gateway",
       "entryFile": "main",
-      "sourceRoot": "apps/qwick/src",
+      "sourceRoot": "apps/gateway/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/qwick/tsconfig.app.json"
+        "tsConfigPath": "apps/gateway/tsconfig.app.json"
       }
     },
-    "qwick-backend": {
+    "microservice-auth": {
       "type": "application",
-      "root": "apps/qwick-backend",
+      "root": "apps/microservice-auth",
       "entryFile": "main",
-      "sourceRoot": "apps/qwick-backend/src",
+      "sourceRoot": "apps/microservice-auth/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/qwick-backend/tsconfig.app.json"
+        "tsConfigPath": "apps/microservice-auth/tsconfig.app.json"
       }
     }
   }
