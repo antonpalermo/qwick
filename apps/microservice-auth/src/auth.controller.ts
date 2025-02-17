@@ -1,12 +1,12 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
 
-import { MicroserviceAuthService } from './microservice-auth.service';
+import { AuthService } from './auth.service';
 
 @Controller()
-export class MicroserviceAuthController {
+export class AuthController {
   constructor(
-    private readonly microserviceAuthService: MicroserviceAuthService,
+    private readonly microserviceAuthService: AuthService,
   ) {}
 
   @MessagePattern({ cmd: 'get_hello' })
