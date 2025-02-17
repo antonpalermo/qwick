@@ -1,24 +1,22 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { MicroserviceAssetController } from './asset.controller';
-import { MicroserviceAssetService } from './asset.service';
+import { AssetController } from './asset.controller';
+import { AssetService } from './asset.service';
 
-describe('MicroserviceAssetController', () => {
-  let microserviceAssetController: MicroserviceAssetController;
+describe('Asset Controller', () => {
+  let assetController: AssetController;
 
   beforeEach(async () => {
     const app: TestingModule = await Test.createTestingModule({
-      controllers: [MicroserviceAssetController],
-      providers: [MicroserviceAssetService],
+      controllers: [AssetController],
+      providers: [AssetService],
     }).compile();
 
-    microserviceAssetController = app.get<MicroserviceAssetController>(
-      MicroserviceAssetController,
-    );
+    assetController = app.get<AssetController>(AssetController);
   });
 
   describe('root', () => {
     it('should return "Hello World!"', () => {
-      expect(microserviceAssetController.getHello()).toBe('Hello World!');
+      expect(assetController.getHello()).toBe('Hello World!');
     });
   });
 });

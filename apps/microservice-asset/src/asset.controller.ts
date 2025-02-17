@@ -1,14 +1,14 @@
-import { Controller, Get } from '@nestjs/common';
-import { MicroserviceAssetService } from './asset.service';
+import { Controller } from '@nestjs/common';
+import { MessagePattern } from '@nestjs/microservices';
+
+import { AssetService } from './asset.service';
 
 @Controller()
-export class MicroserviceAssetController {
-  constructor(
-    private readonly microserviceAssetService: MicroserviceAssetService,
-  ) {}
+export class AssetController {
+  constructor(private readonly microserviceAssetService: AssetService) {}
 
-  @Get()
-  getHello(): string {
+  @MessagePattern({ cmd: 'GET_ASSETS' })
+  getHello(): string[] {
     return this.microserviceAssetService.getHello();
   }
 }

@@ -1,8 +1,10 @@
 import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 
-import { GatewayController } from './gateway.controller';
+import { AssetService } from './asset.service';
 import { GatewayService } from './gateway.service';
+
+import { AssetController } from './asset.controller';
 
 @Module({
   imports: [
@@ -16,10 +18,18 @@ import { GatewayService } from './gateway.service';
             port: 55915,
           },
         },
+        {
+          name: 'ASSET_SERVICE',
+          transport: Transport.TCP,
+          options: {
+            host: 'localhost',
+            port: 40918,
+          },
+        },
       ],
     }),
   ],
-  controllers: [GatewayController],
-  providers: [GatewayService],
+  controllers: [AssetController],
+  providers: [GatewayService, AssetService],
 })
 export class GatewayModule {}
