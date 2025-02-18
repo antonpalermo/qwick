@@ -1,13 +1,14 @@
-import { Controller, Get } from '@nestjs/common';
-
-import { AssetService } from './asset.service';
+import { ClientProxy } from '@nestjs/microservices';
+import { Controller, Get, Inject } from '@nestjs/common';
 
 @Controller('assets')
 export class AssetController {
-  constructor(private readonly assetService: AssetService) {}
+  constructor(
+    @Inject('ASSET_SERVICE') private readonly assetProxy: ClientProxy,
+  ) {}
 
-  @Get()
-  getAssets() {
-    return this.assetService.getAssets();
+  @Get('/create')
+  createAsset() {
+    return this.assetProxy.send({ cmd: 'CREATE_ASSET' }, {});
   }
 }
