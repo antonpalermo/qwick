@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 
-import { AssetService } from './asset.service';
-import { Asset, AssetSchema } from './schemas/asset.schema';
+import { AssetService } from '../services/asset.service';
+import { Asset, AssetSchema } from '../schemas/asset.schema';
 
 @Module({
   imports: [

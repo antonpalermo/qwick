@@ -1,5 +1,5 @@
 import { ClientProxy } from '@nestjs/microservices';
-import { Controller, Get, Inject } from '@nestjs/common';
+import { Controller, Inject, Post } from '@nestjs/common';
 
 @Controller('assets')
 export class AssetController {
@@ -7,8 +7,12 @@ export class AssetController {
     @Inject('ASSET_SERVICE') private readonly assetProxy: ClientProxy,
   ) {}
 
-  @Get('/create')
-  createAsset() {
+  /**
+   * create a new asset record
+   * @returns newly created record returned by asset microservice
+   */
+  @Post('/create')
+  createRecord() {
     return this.assetProxy.send({ cmd: 'CREATE_ASSET' }, {});
   }
 }

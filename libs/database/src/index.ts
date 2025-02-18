@@ -1,4 +1,3 @@
-export * from './asset.module';
 export * from './database.module';
-
-export * from './asset.service';
+export * from './modules/asset.module';
+export * from './services/asset.service';
