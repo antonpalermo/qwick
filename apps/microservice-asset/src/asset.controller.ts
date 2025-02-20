@@ -2,6 +2,7 @@ import { Controller } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
 
 import { AssetService } from '@app/database/services/asset.service';
+import { CreateAssetDto } from '@app/database/dto/create-asset.dto';
 
 @Controller()
 export class AssetController {
@@ -16,7 +17,7 @@ export class AssetController {
    * @returns newly created asset record
    */
   @MessagePattern({ cmd: 'CREATE_ASSET' })
-  create() {
-    return this.assetService.create();
+  create(data: CreateAssetDto) {
+    return this.assetService.create(data);
   }
 }

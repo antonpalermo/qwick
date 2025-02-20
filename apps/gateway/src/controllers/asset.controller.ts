@@ -1,5 +1,6 @@
 import { ClientProxy } from '@nestjs/microservices';
-import { Controller, Inject, Post } from '@nestjs/common';
+import { Body, Controller, Inject, Post } from '@nestjs/common';
+import { CreateAssetDto } from '@app/database/dto/create-asset.dto';
 
 @Controller('assets')
 export class AssetController {
@@ -12,7 +13,7 @@ export class AssetController {
    * @returns newly created record returned by asset microservice
    */
   @Post('/create')
-  createRecord() {
-    return this.assetProxy.send({ cmd: 'CREATE_ASSET' }, {});
+  createRecord(@Body() asset: CreateAssetDto) {
+    return this.assetProxy.send({ cmd: 'CREATE_ASSET' }, { asset });
   }
 }
