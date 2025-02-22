@@ -14,7 +14,7 @@ export default ({ mode }) => {
       port: 4200,
       host: 'localhost',
       proxy: {
-        '/api': `${process.env.BACKEND_SERVICE ?? 'http://localhost:3000/api'}`,
+        '/api': `${process.env.BACKEND_SERVICE ?? 'http://localhost:3000'}`,
       },
     },
     preview: {

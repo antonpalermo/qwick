@@ -1,8 +1,18 @@
+import * as React from 'react';
 import NxWelcome from './nx-welcome';
 
 import { Route, Routes, Link } from 'react-router-dom';
 
 export function App() {
+  React.useEffect(() => {
+    async function getAsset() {
+      const request = await fetch('/api');
+      console.log(await request.json());
+    }
+
+    getAsset();
+  }, []);
+
   return (
     <div>
       <NxWelcome title="web-dashboard" />
