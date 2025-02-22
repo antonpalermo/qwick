@@ -39,7 +39,12 @@
       "options": {
         "targetName": "test"
       },
-      "exclude": ["apps/qwick-e2e/**/*"]
+      "exclude": [
+        "apps/qwick-e2e/**/*",
+        "apps/app-ms-asset-e2e/**/*",
+        "apps/app-ms-asset-e2e/**/*",
+        "apps/app-ms-asset-e2e/**/*"
+      ]
     },
     {
       "plugin": "@nx/vite/plugin",

@@ -20,7 +20,7 @@
     "@nestjs/schematics": "^10.0.1",
     "@nestjs/testing": "^10.0.2",
     "@nx/cypress": "20.4.6",
-    "@nx/devkit": "20.4.4",
+    "@nx/devkit": "20.4.6",
     "@nx/eslint": "20.4.6",
     "@nx/eslint-plugin": "20.4.6",
     "@nx/jest": "20.4.6",
