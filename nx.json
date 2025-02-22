@@ -43,7 +43,8 @@
         "apps/qwick-e2e/**/*",
         "apps/app-ms-asset-e2e/**/*",
         "apps/app-ms-asset-e2e/**/*",
-        "apps/app-ms-asset-e2e/**/*"
+        "apps/app-ms-asset-e2e/**/*",
+        "apps/app-ms-gateway-e2e/**/*"
       ]
     },
     {
