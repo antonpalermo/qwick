@@ -5,10 +5,10 @@
   "type": "module",
   "scripts": {
     "with-env": "dotenv -e ../../.env",
-    "dev": "pnpm with-env -- vite",
-    "build": "tsc -b && vite build",
+    "dev": "pnpm with-env -- nx serve",
+    "build": "tsc -b && nx vite:build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "nx vite:preview"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
