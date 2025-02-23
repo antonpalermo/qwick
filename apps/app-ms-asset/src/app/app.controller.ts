@@ -7,6 +7,11 @@ import { AppService } from './app.service';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
+  @MessagePattern({ cmd: 'asset.create' })
+  async registerAsset() {
+    return await this.appService.registerAsset();
+  }
+
   @MessagePattern({ cmd: 'get.asset' })
   getData() {
     return this.appService.getData();
