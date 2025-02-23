@@ -12,7 +12,7 @@ export class AppService {
     return this.asset.create({ name: 'sample record' });
   }
 
-  getData(): { message: string } {
-    return { message: 'Hello API from asset service' };
+  async getAssets() {
+    return await this.asset.find();
   }
 }

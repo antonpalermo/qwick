@@ -12,8 +12,8 @@ export class AppController {
     return await this.appService.registerAsset();
   }
 
-  @MessagePattern({ cmd: 'get.asset' })
-  getData() {
-    return this.appService.getData();
+  @MessagePattern({ cmd: 'asset.get' })
+  async getAssets() {
+    return await this.appService.getAssets();
   }
 }
