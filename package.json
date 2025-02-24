@@ -6,10 +6,13 @@
   "private": true,
   "dependencies": {
     "@nestjs/common": "^11.0.10",
+    "@nestjs/config": "^4.0.0",
     "@nestjs/core": "^11.0.10",
     "@nestjs/microservices": "^11.0.10",
+    "@nestjs/mongoose": "^11.0.1",
     "@nestjs/platform-express": "^11.0.10",
     "axios": "^1.7.9",
+    "mongoose": "^8.10.1",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-router-dom": "6.11.2",
