@@ -2,9 +2,9 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
-import { AppService } from './app.service';
-import { AppController } from './app.controller';
-import { Asset, AssetSchema } from '../schemas/asset.schema';
+import { Asset, AssetSchema } from './schemas/asset.schema';
+import { AssetsController } from './assets.controller';
+import { AssetsService } from './assets.service';
 
 @Module({
   imports: [
@@ -17,7 +17,7 @@ import { Asset, AssetSchema } from '../schemas/asset.schema';
     }),
     MongooseModule.forFeature([{ name: Asset.name, schema: AssetSchema }]),
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AssetsController],
+  providers: [AssetsService],
 })
 export class AppModule {}
