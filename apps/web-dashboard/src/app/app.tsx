@@ -1,9 +1,10 @@
-import { WebComponents } from '@qwick/web-components';
+import { Button } from '@qwick/web-components';
 
 export default function App() {
   return (
     <div>
-      <WebComponents />
+      <Button variant={'ghost'}>Sample</Button>
+      <Button variant={'outline'}>Sample</Button>
       <h1 className="text-lg">sample</h1>;
     </div>
   );

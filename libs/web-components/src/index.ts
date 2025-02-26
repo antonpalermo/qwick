@@ -1,3 +1,2 @@
-import './globals.css';
-
-export * from './lib/web-components';
+export * from './components/button';
+export * from './lib/utils';
