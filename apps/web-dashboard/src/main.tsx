@@ -1,16 +1,30 @@
-import { StrictMode } from 'react';
-import { BrowserRouter } from 'react-router-dom';
 import * as ReactDOM from 'react-dom/client';
-import App from './app/app';
+
+import { StrictMode } from 'react';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+
+import RootLayout from './app/root.layout';
+import Assets from './app/assets';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
+const routes = createBrowserRouter([
+  {
+    path: '/',
+    element: <RootLayout />,
+    children: [
+      {
+        index: true,
+        element: <Assets />,
+      },
+    ],
+  },
+]);
+
 root.render(
   <StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <RouterProvider router={routes} />
   </StrictMode>
 );
