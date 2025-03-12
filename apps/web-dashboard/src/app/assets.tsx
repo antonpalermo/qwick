@@ -1,4 +1,5 @@
 import useDocument from '../hooks/use-document';
+import { Button } from '@qwick/web-components'
 
 export default function Assets() {
   useDocument('Assets');
@@ -10,7 +11,7 @@ export default function Assets() {
         <label htmlFor="name">Name</label>
         <br />
         <input type="text" name="name" id="name" />
-        <button onClick={() => console.log('registered')}>register</button>
+        <Button onClick={() => console.log('registered')}>register</Button>
       </form>
     </div>
   );

@@ -9,6 +9,12 @@
       "options": {
         "packageRoot": "dist/{projectRoot}"
       }
+    },
+    "build": {
+      "executor": "@nx/vite:build",
+      "options": {
+        "outputPath": "dist/{projectRoot}"
+      }
     }
   },
   "release": {
